@@ -33,6 +33,7 @@ class Cuti(models.Model):
                         default = 'tahunan'
                         )
     alasan          = models.CharField(max_length = 32, blank=True, null=True)
+    sisa_cuti       = models.IntegerField()
 
     class Meta:
         """Meta definition for Cuti."""

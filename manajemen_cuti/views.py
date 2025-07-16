@@ -50,3 +50,10 @@ def addCuti(request):
 
     return render(request, 'manajemen_cuti/create.html', context)
 
+@user_passes_test(lambda u:u.is_staff)
+def approveCuti(request, pk):
+    cuti = Cuti.objects.get(pk=pk)
+    cuti.status = 'disetujui'
+    cuti.save()
+
+    return redirect('manajemen_cuti:list_cuti')

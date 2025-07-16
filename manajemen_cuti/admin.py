@@ -4,4 +4,4 @@ from .models import *
 
 @admin.register(Cuti)
 class CutiAdmin(admin.ModelAdmin):
-    list_display = ['karyawan', 'jenis_cuti', 'tgl_permohonan', 'tgl_mulai', 'tgl_selesai', 'status', 'alasan']
+    list_display = ['karyawan', 'jenis_cuti', 'tgl_permohonan', 'tgl_mulai', 'tgl_selesai', 'status', 'alasan', 'sisa_cuti']
