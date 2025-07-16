@@ -18,20 +18,21 @@ class Cuti(models.Model):
     ]
 
     # TODO: Define fields here
-    karyawan    = models.ForeignKey(User, on_delete = models.CASCADE)
-    jenis_cuti  = models.CharField(
-                    max_length = 16,
-                    choices = CUTI_CHOICES,
-                    default = 'pending'
-                    )
-    tgl_mulai   = models.DateTimeField(default = timezone.now)
-    tgl_selesai = models.DateTimeField()
-    status      = models.CharField(
-                    max_length = 16,
-                    choices = STATUS_CHOICES,
-                    default = 'tahunan'
-                    )
-    alasan      = models.CharField(max_length = 32, Null = True, Blank=True)
+    karyawan        = models.ForeignKey(User, on_delete = models.CASCADE)
+    jenis_cuti      = models.CharField(
+                        max_length = 16,
+                        choices = CUTI_CHOICES,
+                        default = 'pending'
+                        )                        
+    tgl_permohonan  = models.DateTimeField(default = timezone.now)
+    tgl_mulai       = models.DateTimeField()
+    tgl_selesai     = models.DateTimeField()
+    status          = models.CharField(
+                        max_length = 16,
+                        choices = STATUS_CHOICES,
+                        default = 'tahunan'
+                        )
+    alasan          = models.CharField(max_length = 32, blank=True, null=True)
 
     class Meta:
         """Meta definition for Cuti."""

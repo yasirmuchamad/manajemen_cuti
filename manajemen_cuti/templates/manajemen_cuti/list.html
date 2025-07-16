@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h3>{{ title }}</h3>
+    <table border="1">
+        <thead>
+            <th>No</th>
+            <th>karyawan</th>
+            <th>jenis cuti</th>
+            <th>tgl permohonan</th>
+            <th>tgl mulai</th>
+            <th>tgl selesai</th>
+            <th>status</th>
+            <th>alasan</th>
+        </thead>
+        <tbody>
+            
+            {% for c in cutis  %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ c.karyawan }}</td>
+                <td>{{ c.jenis_cuti }}</td>
+                <td>{{ c.tgl_permohonan }}</td>
+                <td>{{ c.tgl_mulai }}</td>
+                <td>{{ c.tgl_selesai }}</td>
+                <td>{{ c.status }}</td>
+                <td>{{ c.alasan }}</td>
+            </tr>
+                
+            {% endfor %}
+                
+        </tbody>
+    </table>
+</body>
+</html>

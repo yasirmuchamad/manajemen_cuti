@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h3>{{ title }}</h3>
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-default">
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-error{% endif %}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="jenis_cuti">Jenis Cuti :</label>
+                                    {{ forms.jenis_cuti }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="tgl_mulai">Tgl Mulai :</label>
+                                    {{ forms.tgl_mulai }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="tgl_selesai">Tgl Selesai :</label>
+                                    {{ forms.tgl_selesai }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="status">Status :</label>
+                                    {{ forms.status }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="alasan">Alasan :</label>
+                                    {{ forms.alasan }}
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" value="Simpan">
+                        <!-- <button type="submit" class="btn btn-success d-flex align-items-center justify-content-center mr-2" style="width: 100px;">
+                            <ion-icon name="save-outline" style="width: 25px; height: 25px; margin-right: 5px;"> </ion-icon> Save
+                        </button> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
