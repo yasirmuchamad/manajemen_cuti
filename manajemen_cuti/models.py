@@ -15,6 +15,7 @@ class Cuti(models.Model):
         ('pending', 'Pending'),
         ('disetujui', 'Disetujui'),
         ('ditolak', 'Ditolak'),
+        ('dibatalkan', 'Dibatalkan'),
     ]
 
     # TODO: Define fields here

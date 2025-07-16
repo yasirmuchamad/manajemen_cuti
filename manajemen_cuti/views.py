@@ -35,6 +35,7 @@ def addCuti(request):
             cuti = form.save(commit=False)
             cuti.karyawan = request.user
             cuti.status = 'pending'
+            cuti.sisa_cuti = 6
             cuti.save()
             print(request.POST)
             print("Tipe alasan:", type(request.POST.get('alasan')))
@@ -57,3 +58,55 @@ def approveCuti(request, pk):
     cuti.save()
 
     return redirect('manajemen_cuti:list_cuti')
+
+@user_passes_test(lambda u:u.is_staff)
+def cancelCuti(request, pk):
+    cuti = Cuti.objects.get(pk=pk)
+    cuti.status = 'dibatalkan'
+    cuti.save()
+
+    return redirect('manajemen_cuti:list_cuti')
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('manajemen_cuti:list_cuti')
+            else:
+                # messages.error(request, 'Username atau password salah.')
+                context = {
+                    'forms': form,
+                    'error': 'Invalid Username or Password',
+                    'title': 'Login',
+                    'subtitle': 'Form',
+                }
+                # messages.success(request, f'Selamat Datang , {user.username}')
+                return render(request, 'manajemen_cuti/login.html', context)
+        else:
+            # print("Form errors:", form.errors)
+            # messages.error(request, 'Username atau Password anda salah.')
+            # messages.error(request, 'Form tidak valid. Coba lagi.')
+            context = {
+                'forms': form,
+                'error': 'Invalid Username or Password',
+                'title': 'Login',
+                'subtitle': 'Form',
+            }
+            return render(request, 'manajemen_cuti/login.html', context)
+    
+    # Get request
+    form = AuthenticationForm()
+    context = {
+        'title' : 'Login Form',
+        'forms' : form,
+    }
+    return render(request, 'login.html', context)
+
+def user_logout(request):
+    logout(request)
+    return redirect('manajemen_cuti:login')

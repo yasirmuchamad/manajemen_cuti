@@ -22,4 +22,9 @@ app_name = 'manajemen_cuti'
 urlpatterns = [
     path('cuti', views.listCuti, name='list_cuti'),
     path('cuti/create', views.addCuti, name='add_cuti'),
+    path('cuti/approve_cuti/<int:pk>', views.approveCuti, name='approve_cuti'),
+    path('cuti/cancel_cuti/<int:pk>', views.cancelCuti, name='cancel_cuti'),
+
+    path('login', views.user_login, name='login'),
+    path('logout', views.user_logout, name='logout'),
 ]

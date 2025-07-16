@@ -7,6 +7,9 @@
 </head>
 <body>
     <h3>{{ title }}</h3>
+    <h4>selamat datang {{ request.user }}</h4>
+
+    <a href="{% url 'manajemen_cuti:add_cuti' %}">Ajukan Cuti</a>
     <table border="1">
         <thead>
             <th>No</th>
@@ -17,6 +20,7 @@
             <th>tgl selesai</th>
             <th>status</th>
             <th>alasan</th>
+            <th>Sisa Cuti</th>
         </thead>
         <tbody>
             
@@ -29,13 +33,29 @@
                 <td>{{ c.tgl_permohonan }}</td>
                 <td>{{ c.tgl_mulai }}</td>
                 <td>{{ c.tgl_selesai }}</td>
-                <td>{{ c.status }}</td>
+                <td>
+                    
+                    {% if c.status == 'pending' and user.is_staff %}
+                        <a href="{% url 'manajemen_cuti:approve_cuti' c.id %}">Setujui</a>|
+                        <a href="{% url 'manajemen_cuti:approve_cuti' c.id %}">Tolak</a>
+                    {% elif c.status == 'disetujui' and user.is_staff %}
+                        <a href="{% url 'manajemen_cuti:cancel_cuti' c.id %}">Batalkan</a>
+                    {% else %}
+                        {{ c.status }}
+                    {% endif %}
+                    
+                    <!-- {% if c.status == 'disetujui' and user.is_staff %}
+                        <a href="{% url 'manajemen_cuti:cancel_cuti' c.id %}">Batalkan</a>
+                    {% endif %} -->
+                        
                 <td>{{ c.alasan }}</td>
+                <td> {{ c.sisa_cuti }}</td>
             </tr>
                 
             {% endfor %}
                 
         </tbody>
     </table>
+    <a href="{% url 'manajemen_cuti:logout' %}">logout</a>
 </body>
 </html>
