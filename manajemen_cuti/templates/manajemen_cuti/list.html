@@ -36,8 +36,8 @@
                 <td>
                     
                     {% if c.status == 'pending' and user.is_staff %}
-                        <a href="{% url 'manajemen_cuti:approve_cuti' c.id %}">Setujui</a>|
-                        <a href="{% url 'manajemen_cuti:approve_cuti' c.id %}">Tolak</a>
+                        <a href="{% url 'manajemen_cuti:approve_cuti' c.id %}">Setujui </a>|
+                        <a href="{% url 'manajemen_cuti:reject_cuti' c.id %}">Tolak</a>
                     {% elif c.status == 'disetujui' and user.is_staff %}
                         <a href="{% url 'manajemen_cuti:cancel_cuti' c.id %}">Batalkan</a>
                     {% else %}

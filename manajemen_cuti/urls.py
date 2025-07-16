@@ -24,6 +24,7 @@ urlpatterns = [
     path('cuti/create', views.addCuti, name='add_cuti'),
     path('cuti/approve_cuti/<int:pk>', views.approveCuti, name='approve_cuti'),
     path('cuti/cancel_cuti/<int:pk>', views.cancelCuti, name='cancel_cuti'),
+    path('cuti/reject_cuti/<int:pk>', views.rejectCuti, name='reject_cuti'),
 
     path('login', views.user_login, name='login'),
     path('logout', views.user_logout, name='logout'),

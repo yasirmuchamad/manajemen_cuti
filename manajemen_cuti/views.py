@@ -67,6 +67,14 @@ def cancelCuti(request, pk):
 
     return redirect('manajemen_cuti:list_cuti')
 
+@user_passes_test(lambda u:u.is_staff)
+def rejectCuti(request, pk):
+    cuti = Cuti.objects.get(pk=pk)
+    cuti.status = 'ditolak'
+    cuti.save()
+
+    return redirect('manajemen_cuti:list_cuti')
+
 def user_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
