@@ -23,7 +23,7 @@ class Cuti(models.Model):
     jenis_cuti      = models.CharField(
                         max_length = 16,
                         choices = CUTI_CHOICES,
-                        default = 'pending'
+                        default = 'tahunan'
                         )                        
     tgl_permohonan  = models.DateTimeField(default = timezone.now)
     tgl_mulai       = models.DateTimeField()
@@ -31,7 +31,7 @@ class Cuti(models.Model):
     status          = models.CharField(
                         max_length = 16,
                         choices = STATUS_CHOICES,
-                        default = 'tahunan'
+                        default = 'pending'
                         )
     alasan          = models.CharField(max_length = 32, blank=True, null=True)
     sisa_cuti       = models.IntegerField()

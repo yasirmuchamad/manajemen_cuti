@@ -26,3 +26,17 @@ class CutiForm(forms.ModelForm):
         self.fields['alasan'].widget.attrs.update({'id':'alasan', 'class':'form-control'})
         self.fields['tgl_mulai'].input_formats = ['%Y-%m-%dT%H:%M']
         self.fields['tgl_selesai'].input_formats = ['%Y-%m-%dT%H:%M']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        tgl_mulai = cleaned_data.get('tgl_mulai')
+        tgl_selesai = cleaned_data.get('tgl_selesai')
+
+        if tgl_mulai and tgl_selesai:
+            if tgl_selesai < tgl_mulai:
+                raise forms.ValidationError("Tanggal selesai tidak boleh sebelum tanggal mulai")
+        
+            if tgl_mulai < timezone.now():
+                raise forms.ValidationError("Tanggal mulai tidak boleh di masa lalu")
+
+        return cleaned_data
