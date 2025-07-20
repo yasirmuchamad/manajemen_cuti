@@ -4,12 +4,12 @@ Manajemen Cuti adalah aplikasi web berbasis Django untuk mencatat permohonan cut
 
 ## Fitur
 - Login & otorisasi user
-- Daftar Permohonan cuti dan manajemen sisa cuti
-- Pengajuan cuti (oleh user)
-- Persetujuan pengajuan (oleh admin)
-- Pembatalan cuti (oleh admin)
-- Validasi sisa cuti (oleh admin)
-- Daftar cuti per user (oleh user)
+- Pengajuan cuti oleh karyawan
+- Persetujuan pengajuan oleh atasan atau HRD
+- Riwayat pengajuan cuti dan status
+- Pembatalan cuti atasan atau HRD
+- Validasi sisa cuti tahunan
+- Daftar cuti per karyawan
 
 
 # Teknologi yang digunakan
@@ -31,6 +31,9 @@ Manajemen Cuti adalah aplikasi web berbasis Django untuk mencatat permohonan cut
     - python menage.py migrate
 6. Jalankan server:
    - python manage.py runserver
+
+7. Buat Super user
+   - python manage.py createsuperuser
 
 8. Akses di browser: `http://127.0.0.1:8000/`
 ## Akun Login
