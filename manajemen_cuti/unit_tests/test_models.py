@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from manajemen_cuti.models import Cuti
 from django.utils import timezone
 from datetime import timedelta
+from django.core.exceptions import ValidationError
 
 class CutiModelTest(TestCase):
     def setUp(self):
@@ -63,6 +64,19 @@ class CutiModelTest(TestCase):
         # Ambil ulang dari DB (Karena instance lama bisa stale)
         update_cuti = Cuti.objects.get(id=cuti.id)
         self.assertEqual(update_cuti.sisa_cuti, 3)
+
+    def test_gagal_cuti_tahunan_jika_sisa_kurang_dari_satu(self):
+        with self.assertRaises(ValidationError) as context:
+            Cuti.objects.create(
+                karyawan=self.user,
+                jenis_cuti='tahunan',
+                tgl_mulai=timezone.now(),
+                tgl_selesai=timezone.now()+timedelta(days=1),
+                status='pending',
+                alasan='Ujian Skripsi',
+                sisa_cuti=0
+            )
+        self.assertIn("Sisa cuti tidak mencukupi", str(context.exception))
 
     def test_filter_by_karyawan(self):
         self.user2 = User.objects.create(username='user2', password='456')

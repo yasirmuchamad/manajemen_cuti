@@ -9,7 +9,7 @@ class CutiForm(forms.ModelForm):
         """Meta definition for Cutiform."""
 
         model = Cuti
-        fields = ['jenis_cuti', 'tgl_mulai', 'tgl_selesai', 'alasan',]
+        fields = ['jenis_cuti', 'tgl_mulai', 'tgl_selesai', 'alasan', 'sisa_cuti']
         widgets = {
             'tgl_mulai' : DateTimeInput(
                 attrs={'type':'datetime-local', 'class':'form-control'}
@@ -31,6 +31,7 @@ class CutiForm(forms.ModelForm):
         cleaned_data = super().clean()
         tgl_mulai = cleaned_data.get('tgl_mulai')
         tgl_selesai = cleaned_data.get('tgl_selesai')
+        sisa_cuti = cleaned_data.get('sisa_cuti')
 
         if tgl_mulai and tgl_selesai:
             if tgl_selesai < tgl_mulai:
@@ -38,5 +39,12 @@ class CutiForm(forms.ModelForm):
         
             if tgl_mulai < timezone.now():
                 raise forms.ValidationError("Tanggal mulai tidak boleh di masa lalu")
+        # return cleaned_data
+        try:
+            sisa_cuti = int(sisa_cuti)
+            if sisa_cuti < 1:
+                raise forms.ValidationError("Sisa cuti tidak mencukupi")
+        except (ValueError, TypeError):
+            raise forms.ValidationError("sisa cuti tidak valid")
 
         return cleaned_data

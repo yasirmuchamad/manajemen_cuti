@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 # Create your models here
 class Cuti(models.Model):
@@ -45,3 +46,15 @@ class Cuti(models.Model):
     def __str__(self):
         """Unicode representation of Cuti."""
         return f"{self.karyawan}-{self.jenis_cuti}-{self.status}"
+
+    def lama_cuti(self):
+        return (self.tgl_selesai - self. tgl_mulai).days + 1
+    
+    def clean(self):
+        if self.jenis_cuti == 'tahunan' and self.sisa_cuti is not None and self.sisa_cuti < 1:
+            raise ValidationError("Sisa cuti tidak mencukupi")
+            
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+            
